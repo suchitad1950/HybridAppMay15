@@ -6,8 +6,8 @@ from langchain.prompts import PromptTemplate
 from rag_app.embedder import embed_chunks
 from rag_app.chunking import chunk_text
 from rag_app.data_loader import get_wikipedia_data
-from dotenv import load_dotenv
-load_dotenv()
+#from dotenv import load_dotenv
+#load_dotenv()
 
 def build_rag_pipeline(query: str):
     raw = get_wikipedia_data(query)

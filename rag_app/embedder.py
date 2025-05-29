@@ -6,10 +6,10 @@ from langchain.embeddings import OpenAIEmbeddings, HuggingFaceEmbeddings
 #load_dotenv() 
 #openai_embed = OpenAIEmbeddings(openai_api_key=os.getenv("OPENAI_API_KEY"))
 
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 import os
 
-load_dotenv()  # Load environment variables from a .env file
+#load_dotenv()  # Load environment variables from a .env file
 openai_api_key = os.getenv("OPENAI_API_KEY")
 if not openai_api_key:
     raise ValueError("OPENAI_API_KEY is not set in the environment variables.")
