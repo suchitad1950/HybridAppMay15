@@ -20,7 +20,7 @@ def build_rag_pipeline(query: str):
         template="You are an expert AI. Given the context:\n{context}\nAnswer:\n{question}"
     )
 
-    llm = OpenAI(openai_api_key=os.getenv("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"))
+    llm = OpenAI(openai_api_key=os.getenv("OPENAI_API_KEY"))
     qa_chain = RetrievalQA(llm=llm, retriever=retriever, prompt=prompt)
     return qa_chain 
 
