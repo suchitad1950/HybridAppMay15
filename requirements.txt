@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+langchain
+openai
+mistralai
+wikipedia
+tiktoken
+faiss-cpu
+python-dotenv
