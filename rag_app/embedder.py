@@ -2,7 +2,9 @@
 
 from langchain.embeddings import OpenAIEmbeddings, HuggingFaceEmbeddings
 import os
-openai_embed = OpenAIEmbeddings(openai_api_key="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")
+from dotenv import load_dotenv
+load_dotenv() 
+openai_embed = OpenAIEmbeddings(openai_api_key=os.getenv("OPENAI_API_KEY"))
 mistral_embed = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
 
 def embed_chunks(chunks):
