@@ -12,7 +12,7 @@
 
 import requests
 
-def get_wikipedia_data(query: str):
+def get_wikipedia_data(query: str, word_limit: int):
     # Wikipedia API endpoint
     url = "https://en.wikipedia.org/w/api.php"
     
@@ -26,18 +26,28 @@ def get_wikipedia_data(query: str):
         "explaintext": True  # Get plain text (no HTML)
     }
     
-    # Make the GET request to the Wikipedia API
+# Make the GET request to the Wikipedia API
     response = requests.get(url, params=params)
     
     # Check if the request was successful
     if response.status_code == 200:
-        return response.json()  # Return the JSON response
+        data = response.json()
+        pages = data.get("query", {}).get("pages", {})
+        page = next(iter(pages.values()))  # Get the first page
+        if "missing" in page:
+            print(f"Page '{query}' does not exist on Wikipedia.")
+            return None
+        content = page.get("extract", "")
+        
+        # Limit the number of words in the result
+        limited_content = " ".join(content.split()[:word_limit])
+        return limited_content
     else:
         print(f"Error: {response.status_code}")
-        return None
+        return None    
 
 # Example usage
-query = "Albert Einstein key achivement in 100 words"
-result = get_wikipedia_data(query)
+query = "Albert Einstein "
+result = get_wikipedia_data(query, word_limit=100 )
 print(result)
 
