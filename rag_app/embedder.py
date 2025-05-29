@@ -1,10 +1,19 @@
 
 
 from langchain.embeddings import OpenAIEmbeddings, HuggingFaceEmbeddings
-import os
+#import os
+#from dotenv import load_dotenv
+#load_dotenv() 
+#openai_embed = OpenAIEmbeddings(openai_api_key=os.getenv("OPENAI_API_KEY"))
+
 from dotenv import load_dotenv
-load_dotenv() 
-openai_embed = OpenAIEmbeddings(openai_api_key=os.getenv("OPENAI_API_KEY"))
+import os
+
+load_dotenv()  # Load environment variables from a .env file
+openai_api_key = os.getenv("OPENAI_API_KEY")
+if not openai_api_key:
+    raise ValueError("OPENAI_API_KEY is not set in the environment variables.")
+openai_embed = OpenAIEmbeddings(openai_api_key=openai_api_key)
 mistral_embed = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
 
 def embed_chunks(chunks):
