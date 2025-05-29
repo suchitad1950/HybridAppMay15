@@ -22,7 +22,11 @@ def build_rag_pipeline(query: str):
         template="You are an expert AI. Given the context:\n{context}\nAnswer:\n{question}"
     )
 
-    llm = OpenAI(openai_api_key=os.getenv("OPENAI_API_KEY"))
+    #llm = OpenAI(openai_api_key=os.getenv("OPENAI_API_KEY"))
+    openai_api_key = os.getenv("OPENAI_API_KEY")
+    if not openai_api_key:
+       raise ValueError("OPENAI_API_KEY is not set in the environment variables.")
+    llm = OpenAI(openai_api_key=openai_api_key)
     qa_chain = RetrievalQA(llm=llm, retriever=retriever, prompt=prompt)
     return qa_chain 
 
