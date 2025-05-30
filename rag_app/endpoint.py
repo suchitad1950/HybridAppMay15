@@ -12,7 +12,7 @@
 
 import requests
 
-def get_wikipedia_data(query: str, word_limit: int):
+def get_wikipedia_data(query: str, sentence_limit: int):
     # Wikipedia API endpoint
     url = "https://en.wikipedia.org/w/api.php"
     
@@ -38,6 +38,11 @@ def get_wikipedia_data(query: str, word_limit: int):
             print(f"Page '{query}' does not exist on Wikipedia.")
             return None
         content = page.get("extract", "")
+
+        # Limit the number of sentences in the result
+        sentences = content.split(". ")  # Split content into sentences
+        limited_content = ". ".join(sentences[:sentence_limit])  # Take the first `sentence_limit` sentences
+        return limited_content
         
         # Limit the number of words in the result
         limited_content = " ".join(content.split()[:word_limit])
@@ -48,6 +53,6 @@ def get_wikipedia_data(query: str, word_limit: int):
 
 # Example usage
 query = "Albert Einstein "
-result = get_wikipedia_data(query, word_limit=100 )
+result = get_wikipedia_data(query, sentence_limit=5 ) # Limit to 5 sentences
 print(result)
 
